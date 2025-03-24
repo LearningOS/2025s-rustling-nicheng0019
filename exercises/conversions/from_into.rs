@@ -44,6 +44,32 @@ impl Default for Person {
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        match s.len() {
+            0 => Person::default(),
+            _ => {
+                let v: Vec<&str> = s.split(',').collect();
+                match v.len() {
+                    2 => {
+                        let name = v[0];
+                        let age = v[1];
+                        match name {
+                            "" => Person::default(),
+                            _ => {
+                                match age.parse::<usize>() {
+                                    Ok(num) => {
+                                        Person{name:name.to_string(), age:num}
+                                    }
+                                    Err(e) => {
+                                        Person::default()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    _ => Person::default()
+                }
+            }                   
+        }
     }
 }
 
@@ -82,8 +108,7 @@ mod tests {
     }
     #[test]
     fn test_bad_age() {
-        // Test that "Mark,twenty" will return the default person due to an
-        // error in parsing age
+        // Test that "Mark,twenty" will return the default person due to an error in parsing age
         let p = Person::from("Mark,twenty");
         assert_eq!(p.name, "John");
         assert_eq!(p.age, 30);

@@ -24,12 +24,14 @@ fn main() {
         }));
     }
 
-    let mut results: Vec<u128> = vec![];
+    let mut completed_threads = 0;
     for handle in handles {
         // TODO: a struct is returned from thread::spawn, can you use it?
+        handle.join().unwrap();
+        completed_threads += 1;
     }
 
-    if results.len() != 10 {
+    if completed_threads != 10 {
         panic!("Oh no! All the spawned threads did not finish!");
     }
 
