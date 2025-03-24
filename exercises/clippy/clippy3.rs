@@ -1,15 +1,8 @@
-// clippy3.rs
-// 
-// Here's a couple more easy Clippy fixes, so you can see its utility.
-//
-// Execute `rustlings hint clippy3` or use the `hint` watch subcommand for a hint.
-
-
 #[allow(unused_variables, unused_assignments)]
 fn main() {
     let my_option: Option<()> = None;
-    if let Some(..) = my_option {
-        my_option.unwrap();
+    if let Some(value) = my_option {
+        
     }
 
     let my_arr = &[
@@ -19,7 +12,7 @@ fn main() {
     println!("My array! Here it is: {:?}", my_arr);
 
     let mut my_empty_vec = vec![1, 2, 3, 4, 5];
-    my_empty_vec.resize(5, 0);
+    my_empty_vec.clear();
     println!("This Vec is empty, see? {:?}", my_empty_vec);
 
     let mut value_a = 45;
